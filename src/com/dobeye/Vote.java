@@ -5,9 +5,7 @@ import java.util.ArrayList;
 public class Vote {
 
     public static final int VOTER_AMOUNT = 2000;
-    public static final String[] CANDIDATE_NAMES = new String[] {"Itai", "Shoval Mizrahi", "Almoz", "Janiv", "Sheamus",
-        "Lele", "Camster", "Zlino", "Ewen", "Benko", "Ventura", "Ran Beth Halahmi", "Beker", "Ori"};
-    public static final int CANDIDATE_AMOUNT = CANDIDATE_NAMES.length;
+    public static final int CANDIDATE_AMOUNT = Candidate.CANDIDATE_NAMES.length;
 
     private final int[] mBallot = new int[CANDIDATE_AMOUNT];
     private final int numberOfValidVotes;
@@ -42,7 +40,7 @@ public class Vote {
         if (this.isBallotAtValid(pos))
             return "N/A";
 
-        return CANDIDATE_NAMES[this.mBallot[pos]];
+        return Candidate.CANDIDATE_NAMES[this.mBallot[pos]];
     }
 
     public int getAmountOfValidVotes () {

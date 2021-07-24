@@ -18,7 +18,7 @@ public class STV_Voting {
             firstVoteCountArr[voteArray[i].getBallotAt(0)]++;
 
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
-            System.out.println(Vote.CANDIDATE_NAMES[i] + ": " + firstVoteCountArr[i] + " - " + Utils.round(((double)firstVoteCountArr[i] / Vote.VOTER_AMOUNT) * 100, 3) + "%");
+            System.out.println(Candidate.CANDIDATE_NAMES[i] + ": " + firstVoteCountArr[i] + " - " + Utils.round(((double)firstVoteCountArr[i] / Vote.VOTER_AMOUNT) * 100, 3) + "%");
     }
 
 }

@@ -17,7 +17,7 @@ public class Borda_Voting {
                     pointCounterArray[voteArray[i].getBallotAt(j)] += Vote.CANDIDATE_AMOUNT - j;
 
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
-            System.out.println(Vote.CANDIDATE_NAMES[i] + ": " + pointCounterArray[i]);
+            System.out.println(Candidate.CANDIDATE_NAMES[i] + ": " + pointCounterArray[i]);
     }
 
 }

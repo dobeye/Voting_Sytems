@@ -1,5 +1,9 @@
 package com.dobeye;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class FPTP_Voting {
 
     public static void fptp_temp () {
@@ -9,16 +13,19 @@ public class FPTP_Voting {
         for (int i = 0; i < Vote.VOTER_AMOUNT; i++)
             voteArray[i] = Utils.generate_vote();
 
-        int[] firstVoteCountArr = new int[Vote.CANDIDATE_AMOUNT];
+        List<Candidate> electionResults = new ArrayList<>();
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
-            firstVoteCountArr[i] = 0;
+            electionResults.add(new Candidate(i));
         //endregion
 
         for (int i = 0; i < Vote.VOTER_AMOUNT; i++)
-            firstVoteCountArr[voteArray[i].getBallotAt(0)]++;
+            electionResults.get(voteArray[i].getBallotAt(0)).addSupport(1);
+
+        Collections.sort(electionResults);
+        Collections.reverse(electionResults);
 
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
-            System.out.println(Vote.CANDIDATE_NAMES[i] + ": " + firstVoteCountArr[i] + " - " + Utils.round(((double)firstVoteCountArr[i] / Vote.VOTER_AMOUNT) * 100, 3) + "%");
+            System.out.println(electionResults.get(i).getCandidateName() + ": " + electionResults.get(i).getSupport() + " - " + Utils.round(((double)electionResults.get(i).getSupport() / Vote.VOTER_AMOUNT) * 100, 3) + "%");
     }
 
 }
