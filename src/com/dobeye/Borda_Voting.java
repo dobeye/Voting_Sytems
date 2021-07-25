@@ -1,23 +1,33 @@
 package com.dobeye;
 
+import java.util.List;
+
 public class Borda_Voting {
 
-    public static void borda_temp () {
-        Vote[] voteArray = new Vote[Vote.VOTER_AMOUNT];
-        for (int i = 0; i < Vote.VOTER_AMOUNT; i++)
-            voteArray[i] = Utils.generate_vote();
-
-        int[] pointCounterArray = new int[Vote.CANDIDATE_AMOUNT];
-        for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
-            pointCounterArray[i] = 0;
+    public static List<Candidate> generateBordaList (Vote[] voteArray) {
+        List<Candidate> pointCounterList = Generator.generateCandidateList();
 
         for (int i = 0; i < Vote.VOTER_AMOUNT; i++)
             for (int j = 0; j < Vote.CANDIDATE_AMOUNT; j++)
                 if (voteArray[i].isBallotAtValid(j))
-                    pointCounterArray[voteArray[i].getBallotAt(j)] += Vote.CANDIDATE_AMOUNT - j;
+                    pointCounterList.get(voteArray[i].getBallotAt(j)).addSupport(Vote.CANDIDATE_AMOUNT - j);
 
+        Candidate.sort(pointCounterList);
+
+        return pointCounterList;
+    }
+
+    public static List<Candidate> generateRandomBordaList () {
+        return generateBordaList(Generator.generateVoteArray());
+    }
+
+    public static void printBorda (List<Candidate> pointCounterList) {
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
-            System.out.println(Candidate.CANDIDATE_NAMES[i] + ": " + pointCounterArray[i]);
+            System.out.println(pointCounterList.get(i).getCandidateName() + ": " + (int)pointCounterList.get(i).getSupport());
+    }
+
+    public static void printRandomBorda () {
+        printBorda(generateRandomBordaList());
     }
 
 }

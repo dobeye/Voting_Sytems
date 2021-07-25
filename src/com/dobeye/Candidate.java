@@ -1,31 +1,34 @@
 package com.dobeye;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Candidate implements Comparable<Candidate> {
 
     public static final String[] CANDIDATE_NAMES = new String[] {"Itai", "Shoval Mizrahi", "Almoz", "Janiv", "Sheamus",
             "Lele", "Camster", "Zlino", "Ewen", "Benko", "Ventura", "Ran Beth Halahmi", "Beker", "Ori"};
 
-    private int candidateIndex;
-    private int support = 0;
+    private final int candidateIndex;
+    private double support = 0;
 
     public Candidate (int candidateIndex) {
         this.candidateIndex = candidateIndex;
     }
 
-    public Candidate (int candidateIndex, int support) {
+    public Candidate (int candidateIndex, double support) {
         this.candidateIndex = candidateIndex;
         this.support = support;
     }
 
-    public int getSupport () {
+    public double getSupport () {
         return this.support;
     }
 
-    public void setSupport (int support) {
+    public void setSupport (double support) {
         this.support = support;
     }
 
-    public void addSupport (int addedSupport) {
+    public void addSupport (double addedSupport) {
         this.support += addedSupport;
     }
 
@@ -39,11 +42,12 @@ public class Candidate implements Comparable<Candidate> {
 
     @Override
     public int compareTo (Candidate o) {
-        if (getSupport() > o.getSupport())
-            return 1; //candidate support is bigger than inputted candidate support
-        if (getSupport() < o.getSupport())
-            return -1; //candidate support is smaller than inputted candidate support
-        return 0; //candidate support is equal to inputted candidate support
+        return Double.compare(getSupport(), o.getSupport());
+    }
+
+    public static void sort (List<Candidate> candidateList) {
+        Collections.sort(candidateList);
+        Collections.reverse(candidateList);
     }
 
 }
