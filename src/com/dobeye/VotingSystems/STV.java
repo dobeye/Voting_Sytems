@@ -1,8 +1,13 @@
-package com.dobeye;
+package com.dobeye.VotingSystems;
+
+import com.dobeye.Items.Candidate;
+import com.dobeye.Generator;
+import com.dobeye.Utils;
+import com.dobeye.Items.Vote;
 
 import java.util.List;
 
-public class STV_Voting {
+public class STV {
 
     public static List<Candidate> generateSTVList (Vote[] voteArray) {
         List<Candidate> firstVoteCountList = Generator.generateCandidateList();

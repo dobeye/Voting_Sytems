@@ -1,5 +1,8 @@
 package com.dobeye;
 
+import com.dobeye.Items.Candidate;
+import com.dobeye.Items.Vote;
+
 import java.util.ArrayList;
 import java.util.List;
 

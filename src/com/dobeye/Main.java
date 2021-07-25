@@ -1,5 +1,8 @@
 package com.dobeye;
 
+import com.dobeye.Items.Vote;
+import com.dobeye.VotingSystems.*;
+
 public class Main {
 
     public static void main (String[] args) {
@@ -7,13 +10,13 @@ public class Main {
         Vote[] voteArray = Generator.generateVoteArray();
 
         System.out.println("FPTP");
-        FPTP_Voting.printFPTP(FPTP_Voting.generateFPTPList(voteArray));
+        FPTP.printFPTP(FPTP.generateFPTPList(voteArray));
         System.out.println("\nSTV");
-        STV_Voting.printSTV(STV_Voting.generateSTVList(voteArray));
+        STV.printSTV(STV.generateSTVList(voteArray));
         System.out.println("\nBorda Count");
-        Borda_Voting.printBorda(Borda_Voting.generateBordaList(voteArray));
+        Borda.printBorda(Borda.generateBordaList(voteArray));
         System.out.println("\nBorda Nauru Count");
-        Borda_Nauru_Voting.printBordaNauru(Borda_Nauru_Voting.generateBordaNauruList(voteArray));
+        BordaNauru.printBordaNauru(BordaNauru.generateBordaNauruList(voteArray));
     }
 
 }

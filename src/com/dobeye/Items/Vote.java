@@ -1,4 +1,4 @@
-package com.dobeye;
+package com.dobeye.Items;
 
 import java.util.ArrayList;
 

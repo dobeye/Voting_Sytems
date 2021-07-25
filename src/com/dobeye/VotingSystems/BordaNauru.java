@@ -1,8 +1,12 @@
-package com.dobeye;
+package com.dobeye.VotingSystems;
+
+import com.dobeye.Items.Candidate;
+import com.dobeye.Generator;
+import com.dobeye.Items.Vote;
 
 import java.util.List;
 
-public class Borda_Nauru_Voting {
+public class BordaNauru {
 
     public static List<Candidate> generateBordaNauruList (Vote[] voteArray) {
         List<Candidate> pointCounterList = Generator.generateCandidateList();

@@ -1,8 +1,13 @@
-package com.dobeye;
+package com.dobeye.VotingSystems;
+
+import com.dobeye.Items.Candidate;
+import com.dobeye.Generator;
+import com.dobeye.Utils;
+import com.dobeye.Items.Vote;
 
 import java.util.List;
 
-public class FPTP_Voting {
+public class FPTP {
 
     public static List<Candidate> generateFPTPList (Vote[] voteArray) {
         List<Candidate> electionResults = Generator.generateCandidateList();
