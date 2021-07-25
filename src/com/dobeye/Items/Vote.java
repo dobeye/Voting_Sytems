@@ -13,6 +13,7 @@ public class Vote {
     public Vote (int[] ballotArr) {
         this.numberOfValidVotes = ballotArr.length;
 
+        //noinspection ManualArrayCopy
         for (int i = 0; i < ballotArr.length; i++)
             this.mBallot[i] = ballotArr[i];
         for (int i = ballotArr.length; i < CANDIDATE_AMOUNT ; i++)
