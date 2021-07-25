@@ -17,6 +17,8 @@ public class Main {
         Borda.printBorda(Borda.generateBordaList(voteArray));
         System.out.println("\nBorda Nauru Count");
         BordaNauru.printBordaNauru(BordaNauru.generateBordaNauruList(voteArray));
+        System.out.println("\nCondorcet");
+        Condorcet.printCondorcet(Condorcet.generateCondorcetList(voteArray));
     }
 
 }
