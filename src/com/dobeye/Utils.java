@@ -2,8 +2,10 @@ package com.dobeye;
 
 import com.dobeye.Items.Candidate;
 import com.dobeye.Items.Vote;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Utils {
@@ -17,6 +19,22 @@ public class Utils {
         BigDecimal bd = BigDecimal.valueOf(val);
         bd = bd.setScale(precision, RoundingMode.HALF_UP);
         return bd.doubleValue();
+    }
+
+    public static ArrayList<Integer[]> voteArray2voteArrayList (Vote[] voteArray) {
+        ArrayList<Integer[]> voteArrayList = new ArrayList<>();
+
+        //noinspection ForLoopReplaceableByForEach
+        for (int i = 0; i < voteArray.length; i++) {
+            Integer[] currentVote = new Integer[voteArray[i].getAmountOfValidVotes()];
+
+            for (int j = 0; j < currentVote.length; j++)
+                currentVote[j] = voteArray[i].getBallotAt(j);
+
+            voteArrayList.add(currentVote);
+        }
+
+        return voteArrayList;
     }
 
     public static int[][] candidateSupportArray (Vote[] voteArray) {

@@ -8,8 +8,7 @@ public class Vote {
     public static final int CANDIDATE_AMOUNT = Candidate.CANDIDATE_NAMES.length;
 
     private final int[] mBallot = new int[CANDIDATE_AMOUNT];
-    private final int numberOfValidVotes;
-    private int currentTopChoice = 0;
+    private final int numberOfValidVotes;;
 
     public Vote (int[] ballotArr) {
         this.numberOfValidVotes = ballotArr.length;
@@ -48,15 +47,5 @@ public class Vote {
     public int getAmountOfValidVotes () {
         return this.numberOfValidVotes;
     }
-
-    public int getCurrentTopChoice () {
-        return this.currentTopChoice;
-    }
-
-    public void removeTopChoice () {
-        System.out.println(this.currentTopChoice + " " + getBallotName(this.currentTopChoice));
-        this.currentTopChoice++;
-    }
-
 
 }
