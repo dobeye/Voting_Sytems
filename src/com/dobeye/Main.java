@@ -11,8 +11,8 @@ public class Main {
 
         System.out.println("FPTP");
         FPTP.printFPTP(FPTP.generateFPTPList(voteArray));
-        //System.out.println("\nSTV");
-        //STV.printSTV(STV.generateSTVList(voteArray));
+        System.out.println("\nInstantRunoff");
+        InstantRunoff.printInstantRunoff(InstantRunoff.generateInstantRunoffList(voteArray));
         System.out.println("\nBorda Count");
         Borda.printBorda(Borda.generateBordaList(voteArray));
         System.out.println("\nBorda Nauru Count");
@@ -23,6 +23,8 @@ public class Main {
         Approval.printApproval(Approval.generateApprovalList(voteArray));
         System.out.println("\nBucklin");
         Bucklin.printBucklin(Bucklin.generateBucklinList(voteArray));
+        System.out.println("\nSequential Pairwise");
+        SequentialPairwise.generateSequentialPairwiseList(voteArray);
         System.out.println("\nCandidate support by position");
         Utils.candidateSupportArray(voteArray);
     }

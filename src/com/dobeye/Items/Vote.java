@@ -10,6 +10,8 @@ public class Vote {
     private final int[] mBallot = new int[CANDIDATE_AMOUNT];
     private final int numberOfValidVotes;
 
+    private int topPossibleChoice = 0;
+
     public Vote (int[] ballotArr) {
         this.numberOfValidVotes = ballotArr.length;
 
@@ -46,6 +48,14 @@ public class Vote {
 
     public int getAmountOfValidVotes () {
         return this.numberOfValidVotes;
+    }
+
+    public void removeTopChoice () {
+        this.topPossibleChoice++;
+    }
+
+    public int getTopPossibleChoice () {
+        return this.topPossibleChoice;
     }
 
 }
