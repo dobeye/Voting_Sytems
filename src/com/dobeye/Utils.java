@@ -21,18 +21,16 @@ public class Utils {
         return bd.doubleValue();
     }
 
-    public static ArrayList<Integer[]> voteArray2voteArrayList (Vote[] voteArray) {
-        ArrayList<Integer[]> voteArrayList = new ArrayList<>();
+    public static ArrayList<Integer>[] voteArray2voteArrayList (Vote[] voteArray) {
+        //noinspection unchecked
+        ArrayList<Integer>[] voteArrayList = new ArrayList[voteArray.length];
 
-        //noinspection ForLoopReplaceableByForEach
-        for (int i = 0; i < voteArray.length; i++) {
-            Integer[] currentVote = new Integer[voteArray[i].getAmountOfValidVotes()];
+        for (int i = 0; i < voteArrayList.length; i++)
+            voteArrayList[i] = new ArrayList<>();
 
-            for (int j = 0; j < currentVote.length; j++)
-                currentVote[j] = voteArray[i].getBallotAt(j);
-
-            voteArrayList.add(currentVote);
-        }
+        for (int i = 0; i < voteArrayList.length; i++)
+            for (int j = 0; j < voteArray[i].getAmountOfValidVotes(); j++)
+                voteArrayList[i].add(voteArray[i].getBallotAt(j));
 
         return voteArrayList;
     }
