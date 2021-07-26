@@ -9,7 +9,7 @@ import java.util.List;
 public class Generator {
 
     public static Vote generateSingleVote () {
-        int size = Utils.getRandomNumber(1, Vote.CANDIDATE_AMOUNT);
+        int size = Utils.getRandomNumber(1, Vote.CANDIDATE_AMOUNT + 1); //speak with Electric about vote generation issue
         ArrayList<Integer> allCandidates = new ArrayList<>();
 
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
