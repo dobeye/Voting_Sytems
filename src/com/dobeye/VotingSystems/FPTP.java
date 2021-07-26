@@ -26,7 +26,7 @@ public class FPTP {
 
     public static void printFPTP (List<Candidate> electionResults) {
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
-            System.out.println(electionResults.get(i).getCandidateName() + ": " + electionResults.get(i).getSupport() + " - " + Utils.round((electionResults.get(i).getSupport() / Vote.VOTER_AMOUNT) * 100, 3) + "%");
+            System.out.println(electionResults.get(i).getCandidateName() + ": " + (int)electionResults.get(i).getSupport() + " - " + Utils.round((electionResults.get(i).getSupport() / Vote.VOTER_AMOUNT) * 100, 3) + "%");
     }
 
     public static void printRandomFPTP () {

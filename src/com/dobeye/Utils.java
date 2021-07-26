@@ -19,8 +19,9 @@ public class Utils {
         return bd.doubleValue();
     }
 
-    public static void candidateSupportArray (Vote[] voteArray) {
+    public static int[][] candidateSupportArray (Vote[] voteArray) {
         int[][] supportByPlacement = new int[Vote.CANDIDATE_AMOUNT][Vote.CANDIDATE_AMOUNT];
+
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
             for (int j = 0; j < Vote.CANDIDATE_AMOUNT; j++)
                 supportByPlacement[i][j] = 0;
@@ -30,14 +31,19 @@ public class Utils {
                 if (voteArray[i].isBallotAtValid(j))
                     supportByPlacement[voteArray[i].getBallotAt(j)][j]++;
 
+        return supportByPlacement;
+    }
+
+    public static void printCandidateSupportArray (Vote[] voteArray) {
+        int[][] supportByPlacement = candidateSupportArray(voteArray);
+
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++) {
             System.out.print(Candidate.CANDIDATE_NAMES[i] + ": [");
-            for (int j = 0; j < Vote.CANDIDATE_AMOUNT - 1; j++) {
+            for (int j = 0; j < Vote.CANDIDATE_AMOUNT - 1; j++)
                 System.out.print(supportByPlacement[i][j] + ", ");
-            }
+
             System.out.print(supportByPlacement[i][Vote.CANDIDATE_AMOUNT - 1] + "]\n");
         }
     }
-
 
 }
