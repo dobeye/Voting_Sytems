@@ -2,10 +2,8 @@ package com.dobeye.VotingSystems;
 
 import com.dobeye.Items.Candidate;
 import com.dobeye.Generator;
-import com.dobeye.Utils;
 import com.dobeye.Items.Vote;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InstantRunoff {
@@ -15,38 +13,47 @@ public class InstantRunoff {
         int validCandidates = Vote.CANDIDATE_AMOUNT - 1;
 
         election:
-        for (int i = 0; i < Vote.CANDIDATE_AMOUNT - 2; i++) {
+        for (int i = 0; i < Vote.CANDIDATE_AMOUNT - 1; i++) //noinspection CommentedOutCode
+        {
+            //System.out.println("round " + (i + 1));
+
             for (int j = 0; j < Vote.CANDIDATE_AMOUNT; j++)
                 electionResults.get(j).setSupport(0);
+            double validVotes = 0;
 
-            for (int j = 0; j < Vote.VOTER_AMOUNT; j++)
-                if (voteArray[j].isBallotAtValid(voteArray[j].getCurrentTopChoice()))
-                    /*for (int k = 0; k < Vote.CANDIDATE_AMOUNT; k++)
-                        if (electionResults.get(k).getCandidateIndex() == voteArray[j].getBallotAt(voteArray[j].getCurrentTopChoice()))
-                            electionResults.get(k).addSupport(1);*/
-                    electionResults.get(voteArray[j].getBallotAt(voteArray[j].getCurrentTopChoice())).addSupport(1);
+            for (int j = 0; j < Vote.VOTER_AMOUNT; j++) //noinspection CommentedOutCode
+            {
+                if (voteArray[j].isBallotAtValid(voteArray[j].getTopPossibleChoice()))
+                    for (int k = 0; k < Vote.CANDIDATE_AMOUNT; k++)
+                        if (electionResults.get(k).getCandidateIndex() == voteArray[j].getBallotAt(voteArray[j].getTopPossibleChoice())) {
+                            electionResults.get(k).addSupport(1);
+                            validVotes++;
+                        }
+                /*for (int k = 0; k < Vote.CANDIDATE_AMOUNT; k++)
+                    System.out.print(voteArray[j].getBallotAt(k) + ", ");
+                System.out.println(". " + voteArray[j].getTopPossibleChoice());*/
+            }
 
-            Candidate.sort(electionResults);
+                Candidate.sort(electionResults);
+                //System.out.println("Sorted");
+
+                /*for (int j = 0; j < Vote.CANDIDATE_AMOUNT; j++)
+                    System.out.println(electionResults.get(j).getCandidateIndex() + ": " + electionResults.get(j).getSupport());*/
 
             for (int j = 0; j < Vote.CANDIDATE_AMOUNT; j++)
-                if (electionResults.get(j).getSupport() > (double)Vote.VOTER_AMOUNT / 2)
+                if (electionResults.get(j).getSupport() > validVotes / 2)
                     break election;
 
             for (int j = 0; j < Vote.VOTER_AMOUNT; j++)
-                for (int k = 0; k < Vote.CANDIDATE_AMOUNT; k++)
-                    if (voteArray[j].getBallotAt(voteArray[j].getCurrentTopChoice()) == electionResults.get(validCandidates).getCandidateIndex())
+                for (int k = validCandidates; k < Vote.CANDIDATE_AMOUNT; k++)
+                    if(voteArray[j].getBallotAt(voteArray[j].getTopPossibleChoice()) == electionResults.get(k).getCandidateIndex()) {
                         voteArray[j].removeTopChoice();
+                        k = validCandidates;
+                    }
 
             validCandidates--;
-            List<Candidate> sortedCandidateList = new ArrayList<>();
-            for (int j = 0; j < Vote.CANDIDATE_AMOUNT; j++)
-                for (int k = 0; k < Vote.CANDIDATE_AMOUNT; k++)
-                    if (electionResults.get(k).getCandidateIndex() == j)
-                        sortedCandidateList.add(electionResults.get(k));
+            //System.out.println(validCandidates);
 
-            electionResults = sortedCandidateList;
-            printInstantRunoff(electionResults);
-            System.out.println("");
         }
 
         return electionResults;
@@ -58,9 +65,10 @@ public class InstantRunoff {
 
     public static void printInstantRunoff (List<Candidate> firstVoteCountList) {
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
-            System.out.println(firstVoteCountList.get(i).getCandidateName() + ": " + firstVoteCountList.get(i).getSupport() + " - " + Utils.round((firstVoteCountList.get(i).getSupport() / Vote.VOTER_AMOUNT) * 100, 3) + "%");
+            System.out.println(firstVoteCountList.get(i).getCandidateName() + ": " + firstVoteCountList.get(i).getSupport());
     }
 
+    @SuppressWarnings("unused")
     public static void printRandomInstantRunoff () {
         printInstantRunoff(generateRandomInstantRunoffList());
     }

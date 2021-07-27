@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 public class Vote {
 
-    public static final int VOTER_AMOUNT = 100;
+    public static final int VOTER_AMOUNT = 2000;
     public static final int CANDIDATE_AMOUNT = Candidate.CANDIDATE_NAMES.length;
 
     private final int[] mBallot = new int[CANDIDATE_AMOUNT];
-    private final int numberOfValidVotes;;
+    private final int numberOfValidVotes;
+
+    private int topPossibleChoice = 0;
 
     public Vote (int[] ballotArr) {
         this.numberOfValidVotes = ballotArr.length;
@@ -38,7 +40,7 @@ public class Vote {
     }
 
     public String getBallotName (int pos) {
-        if (!this.isBallotAtValid(pos))
+        if (this.isBallotAtValid(pos))
             return "N/A";
 
         return Candidate.CANDIDATE_NAMES[this.mBallot[pos]];
@@ -46,6 +48,14 @@ public class Vote {
 
     public int getAmountOfValidVotes () {
         return this.numberOfValidVotes;
+    }
+
+    public void removeTopChoice () {
+        this.topPossibleChoice++;
+    }
+
+    public int getTopPossibleChoice () {
+        return this.topPossibleChoice;
     }
 
 }

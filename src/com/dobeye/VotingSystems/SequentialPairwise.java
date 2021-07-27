@@ -50,6 +50,7 @@ public class SequentialPairwise {
             System.out.println(result);
     }
 
+    @SuppressWarnings("unused")
     public static void printRandomSequentialPairwise () {
         printSequentialPairwise(generateRandomSequentialPairwiseList());
     }
