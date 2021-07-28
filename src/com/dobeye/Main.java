@@ -6,10 +6,16 @@ import com.dobeye.VotingSystems.*;
 public class Main {
 
     public static void main (String[] args) {
+        /*int[] A = {0, 1, 2, 3};
+        int[] B = {3, 2, 0, 1};
+        int[] C = {3, 2, 0, 1};
+        int[] D = {1, 2, 3, 0};
+        int[] E = {0, 2, 1, 3};
 
+        Vote[] voteArray = {new Vote(A), new Vote(B), new Vote(C), new Vote(D), new Vote(E) };*/
         Vote[] voteArray = Generator.generateVoteArray();
 
-        System.out.println("FPTP");
+                System.out.println("FPTP");
         FPTP.printFPTP(FPTP.generateFPTPList(voteArray));
         System.out.println("\nInstantRunoff");
         InstantRunoff.printInstantRunoff( InstantRunoff.generateInstantRunoffList(voteArray));
@@ -25,6 +31,8 @@ public class Main {
         Bucklin.printBucklin(Bucklin.generateBucklinList(voteArray));
         System.out.println("\nSequential Pairwise");
         SequentialPairwise.printSequentialPairwise(SequentialPairwise.generateSequentialPairwiseList(voteArray));
+        System.out.println("\nCoombs Rule");
+        CoombsRule.printCoombsRule(CoombsRule.generateCoombsRuleList(voteArray));
         System.out.println("\nCandidate support by position");
         Utils.printCandidateSupportArray(voteArray);
     }
