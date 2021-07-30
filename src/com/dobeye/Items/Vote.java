@@ -50,12 +50,16 @@ public class Vote {
         return this.numberOfValidVotes;
     }
 
-    public void removeTopChoice () {
-        this.topPossibleChoice++;
+    public void setTopPossibleChoice (int topPossibleChoice) {
+        this.topPossibleChoice = topPossibleChoice;
     }
 
     public int getTopPossibleChoice () {
         return this.topPossibleChoice;
+    }
+
+    public void removeTopChoice () {
+        this.topPossibleChoice++;
     }
 
 }

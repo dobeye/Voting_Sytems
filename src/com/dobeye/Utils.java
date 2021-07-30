@@ -19,6 +19,11 @@ public class Utils {
         return bd.doubleValue();
     }
 
+    public static void resetChoiceForVoteArray (Vote[] voteArray) {
+        for (int i = 0; i < voteArray.length; i++)
+            voteArray[i].setTopPossibleChoice(0);
+    }
+
     public static int[][] candidateSupportArray (Vote[] voteArray) {
         int[][] supportByPlacement = new int[Vote.CANDIDATE_AMOUNT][Vote.CANDIDATE_AMOUNT];
 
@@ -38,11 +43,11 @@ public class Utils {
         int[][] supportByPlacement = candidateSupportArray(voteArray);
 
         for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++) {
-            System.out.print(Candidate.CANDIDATE_NAMES[i] + ": [");
+            System.out.printf("%-17s [", Candidate.CANDIDATE_NAMES[i] + ":");
             for (int j = 0; j < Vote.CANDIDATE_AMOUNT - 1; j++)
-                System.out.print(supportByPlacement[i][j] + ", ");
+                System.out.printf("%3d, ", supportByPlacement[i][j]);
 
-            System.out.print(supportByPlacement[i][Vote.CANDIDATE_AMOUNT - 1] + "]\n");
+            System.out.printf("%3d]\n", supportByPlacement[i][Vote.CANDIDATE_AMOUNT - 1]);
         }
     }
 

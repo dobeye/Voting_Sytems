@@ -15,10 +15,10 @@ public class Main {
         Vote[] voteArray = {new Vote(A), new Vote(B), new Vote(C), new Vote(D), new Vote(E) };*/
         Vote[] voteArray = Generator.generateVoteArray();
 
-                System.out.println("FPTP");
+        System.out.println("FPTP");
         FPTP.printFPTP(FPTP.generateFPTPList(voteArray));
         System.out.println("\nInstantRunoff");
-        InstantRunoff.printInstantRunoff( InstantRunoff.generateInstantRunoffList(voteArray));
+        InstantRunoff.printInstantRunoff(InstantRunoff.generateInstantRunoffList(voteArray));
         System.out.println("\nBorda Count");
         Borda.printBorda(Borda.generateBordaList(voteArray));
         System.out.println("\nBorda Nauru Count");
@@ -33,7 +33,7 @@ public class Main {
         SequentialPairwise.printSequentialPairwise(SequentialPairwise.generateSequentialPairwiseList(voteArray));
         System.out.println("\nCoombs Rule");
         CoombsRule.printCoombsRule(CoombsRule.generateCoombsRuleList(voteArray));
-        System.out.println("\nCandidate support by position");
+        System.out.println("\n\nCandidate Support");
         Utils.printCandidateSupportArray(voteArray);
     }
 
