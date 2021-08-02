@@ -19,6 +19,8 @@ public class Main {
         FPTP.printFPTP(FPTP.generateFPTPList(voteArray));
         System.out.println("\nInstantRunoff");
         InstantRunoff.printInstantRunoff(InstantRunoff.generateInstantRunoffList(voteArray));
+        System.out.println("\nAlternative InstantRunoff");
+        AlternativeInstantRunoff.printAltInstantRunoff(AlternativeInstantRunoff.generateAltInstantRunoffList(voteArray));
         System.out.println("\nBorda Count");
         Borda.printBorda(Borda.generateBordaList(voteArray));
         System.out.println("\nBorda Nauru Count");
@@ -31,8 +33,12 @@ public class Main {
         Bucklin.printBucklin(Bucklin.generateBucklinList(voteArray));
         System.out.println("\nSequential Pairwise");
         SequentialPairwise.printSequentialPairwise(SequentialPairwise.generateSequentialPairwiseList(voteArray));
+        System.out.println("\nAlternative Coombs Rule");
+        AlternativeCoombsRule.printAltCoombsRule(AlternativeCoombsRule.generateAltCoombsRuleList(voteArray));
         System.out.println("\nCoombs Rule");
         CoombsRule.printCoombsRule(CoombsRule.generateCoombsRuleList(voteArray));
+        System.out.println("\nNanson's Method");
+        NansonMethod.printNansonMethod(NansonMethod.generateNansonMethodList(voteArray));
         System.out.println("\n\nCandidate Support");
         Utils.printCandidateSupportArray(voteArray);
     }

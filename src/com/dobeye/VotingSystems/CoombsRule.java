@@ -46,6 +46,7 @@ public class CoombsRule {
             }
 
             Candidate.sort(candidateSupport);
+            System.out.println(candidateSupport.get(i).getCandidateName() + " false");
 
             for (int j = 0; j < Vote.VOTER_AMOUNT; j++)
                 for (int k = i; k < Vote.CANDIDATE_AMOUNT; k++)

@@ -10,6 +10,7 @@ public class Candidate implements Comparable<Candidate> {
 
     private final int candidateIndex;
     private double support = 0;
+    private boolean validity = true;
 
     public Candidate (int candidateIndex) {
         this.candidateIndex = candidateIndex;
@@ -38,6 +39,14 @@ public class Candidate implements Comparable<Candidate> {
 
     public String getCandidateName () {
         return CANDIDATE_NAMES[this.candidateIndex];
+    }
+
+    public boolean getValidity () {
+        return this.validity;
+    }
+
+    public void invalidateCandidate () {
+        this.validity = false;
     }
 
     @Override
