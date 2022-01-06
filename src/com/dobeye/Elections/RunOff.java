@@ -24,12 +24,12 @@ public abstract class RunOff extends Election {
             for (int j = 0; j < Candidate.CANDIDATE_NUM; ++j) {
                 int index = this.getCandidates()[j].getCandidateIndex();
                 if (Arrays.stream(this.pseudoResults[i].getRemoved()).anyMatch(x -> x.getCandidateIndex() == index))
-                    this.getCandidates()[j].invalidateCandidate();
+                    this.getCandidates()[j].setValidity(false);
             }
 
             for (int j = 0; j < Candidate.CANDIDATE_NUM; ++j) {
                 if (!this.getCandidates()[j].isValid())
-                    this.getCandidates()[j].demotePlacement();
+                    this.getCandidates()[j].demotePlacement(1);
             }
         }
 
@@ -80,7 +80,11 @@ public abstract class RunOff extends Election {
         Arrays.sort(valid, (Candidate a, Candidate b) -> (int) Math.signum(b.getSupport() - a.getSupport()));
         Arrays.sort(invalidated, (Candidate a, Candidate b) -> (int) Math.signum(a.getPlacement() - b.getPlacement()));
 
-        this.pseudoResults[r] = new RunOffStep(invalidated, valid, removed, r);
+        for (int i = 0; i < this.pseudoResults.length; ++i)
+            if (this.pseudoResults[i] == null) {
+                this.pseudoResults[i] = new RunOffStep(invalidated, valid, removed, r);
+                break;
+            }
     }
 
     public RunOffStep[] getPseudoResults () {

@@ -37,7 +37,7 @@ public class NansonMethod extends RunOff {
                     validList.add(candidate);
                     if (candidate.getSupport() <= (double) validVotes / validCandidates) {
                         removedList.add(candidate);
-                        this.getCandidates()[j].invalidateCandidate();
+                        this.getCandidates()[j].setValidity(false);
                     }
                 } else invalidatedList.add(candidate);
             }
@@ -56,7 +56,7 @@ public class NansonMethod extends RunOff {
 
             for (int j = 0; j < Candidate.CANDIDATE_NUM; ++j) {
                 if (!this.getCandidates()[j].isValid())
-                    this.getCandidates()[j].demotePlacement();
+                    this.getCandidates()[j].demotePlacement(1);
             }
         }
 

@@ -81,13 +81,11 @@ public class Candidate extends Person {
         return this.validity;
     }
 
-    public void invalidateCandidate () {
-        if (!this.validity)
-            throw new IllegalArgumentException("RepeatedIdempotence");
-        this.validity = false;
+    public void setValidity(boolean validity) {
+        this.validity = validity;
     }
 
-    public void placeCandidate (int place) {
+    public void setPlacement(int place) {
         this.placement = place;
     }
 
@@ -95,8 +93,8 @@ public class Candidate extends Person {
         return this.placement;
     }
 
-    public void demotePlacement() {
-        this.placement++;
+    public void demotePlacement(int p) {
+        this.placement += p;
     }
 
     public static void placementBySupport (Candidate[] candidates) {
@@ -104,11 +102,11 @@ public class Candidate extends Person {
         int adder = 1;
         for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
             if (candidates[i].getPlacement() == 0) {
-                candidates[i].placeCandidate(i + adder);
+                candidates[i].setPlacement(i + adder);
 
                 for (int j = i + 1; j < Candidate.CANDIDATE_NUM; ++j)
                     if (candidates[i].getSupport() == candidates[j].getSupport()) {
-                        candidates[j].placeCandidate(candidates[i].getPlacement());
+                        candidates[j].setPlacement(candidates[i].getPlacement());
                         adder--;
                     }
             }

@@ -40,7 +40,7 @@ public interface CandidateComparable {
             for (int j = 0; j < Candidate.CANDIDATE_NUM; ++j) {
                 int[] tempArr = PairwiseComparison(candidates[i], candidates[j], votes, partial);
 
-                if (adjacent) {ret[i][j] = tempArr[0]; ret[j][i] = tempArr[1];}
+                if (!adjacent) {ret[i][j] = tempArr[0]; ret[j][i] = tempArr[1];}
 
                 else {
                     if (tempArr[0] < tempArr[1]) {ret[i][j] = 0; ret[j][i] = tempArr[1];}
@@ -54,10 +54,10 @@ public interface CandidateComparable {
 
     static ArrayList<int[]> supportMatrixCycleCheck (int unbeatable, int candidate, int[][] supportMatrix) {
         ArrayList<int[]> input = new ArrayList<>();
-        return internalMethod(unbeatable, candidate, supportMatrix, input);
+        return recursiveMethod(unbeatable, candidate, supportMatrix, input);
     }
 
-    static ArrayList<int[]> internalMethod(int unbeatable, int candidate, int[][] supportMatrix, ArrayList<int[]> path) {
+    static ArrayList<int[]> recursiveMethod (int unbeatable, int candidate, int[][] supportMatrix, ArrayList<int[]> path) {
         if (supportMatrix[candidate][unbeatable] > supportMatrix[unbeatable][candidate]) {
             path.add(new int[]{candidate, unbeatable, supportMatrix[candidate][unbeatable] - supportMatrix[unbeatable][candidate]});
             return path;
@@ -77,7 +77,7 @@ public interface CandidateComparable {
             if (supportMatrix[candidate][i] > supportMatrix[i][candidate]) {
                 path.add(new int[]{candidate, i, supportMatrix[candidate][i] - supportMatrix[i][candidate]});
 
-                ArrayList<int[]> recursionVariable = internalMethod(unbeatable, i, supportMatrix, path);
+                ArrayList<int[]> recursionVariable = recursiveMethod(unbeatable, i, supportMatrix, path);
                 if (recursionVariable != null)
                     return  recursionVariable;
 
@@ -97,7 +97,6 @@ public interface CandidateComparable {
                     score++;
             copelandScoreByIndex[i] = score;
         }
-
         int copelandMax = 0;
         for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
             if (copelandScoreByIndex[i] > copelandMax)
@@ -110,10 +109,10 @@ public interface CandidateComparable {
 
         while (true) {
             ArrayList<Integer> addedRet = new ArrayList<>();
-            for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            for (int i = 0; i < retList.size(); ++i)
                 for (int j = 0; j < Candidate.CANDIDATE_NUM; ++j) {
                     int t = j;
-                    if (adjacencyMatrix[i][j] == 0 && retList.stream().noneMatch(x -> x == t))
+                    if (adjacencyMatrix[retList.get(i)][j] == 0 && retList.stream().noneMatch(x -> x == t))
                         addedRet.add(j);
                 }
 
@@ -126,6 +125,37 @@ public interface CandidateComparable {
         int[] ret = new int[retList.size()];
         for (int i = 0; i < retList.size(); ++i)
             ret[i] = retList.get(i);
+
+        return ret;
+    }
+
+    static int[][] arrayPermutation (int[] arr) {
+        if (arr.length == 1)
+            return new int[][]{arr};
+
+        ArrayList<int[]> retList = new ArrayList<>();
+        for (int i = 0; i < arr.length; ++i) {
+            ArrayList<Integer> endingList = new ArrayList<>();
+            for (int j = 0; j < arr.length; ++j)
+                if (j != i)
+                    endingList.add(arr[j]);
+
+            int[] endingArr = new int[endingList.size()];
+            for (int j = 0; j < endingList.size(); ++j)
+                endingArr[j] = endingList.get(j);
+
+            int[][] endingOptions = arrayPermutation(endingArr);
+            for (int j = 0; j < endingOptions.length; ++j) {
+                int[] retOption = new int[arr.length];
+
+                retOption[0] = arr[i];
+                System.arraycopy(endingOptions[j], 0, retOption, 1, arr.length - 1);
+                retList.add(retOption);
+            }
+        }
+
+        int[][] ret = new int[retList.size()][arr.length];
+        retList.toArray(ret);
 
         return ret;
     }

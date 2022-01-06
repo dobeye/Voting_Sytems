@@ -3,6 +3,7 @@ package com.dobeye.Elections;
 import com.dobeye.People.Candidate;
 import com.dobeye.People.Voter;
 
+import java.util.Arrays;
 import java.util.function.DoubleUnaryOperator;
 
 public abstract class Election {
@@ -13,11 +14,15 @@ public abstract class Election {
     public Election (Voter[] votes, Candidate[] candidates) {
         this.candidates = new Candidate[candidates.length];
         for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
-            this.getCandidates()[i] = new Candidate(candidates[i]);
+            this.candidates[i] = new Candidate(candidates[i]);
         this.winners = runElection(votes);
+        Voter.voterReset(votes);
     }
 
-    public abstract Candidate[] runElection(Voter[] votes);
+    public Candidate[] runElection(Voter[] votes) {
+        Arrays.sort(this.candidates, (Candidate a, Candidate b) -> (int) Math.signum(a.getPlacement() - b.getPlacement()));
+        return new Candidate[]{this.candidates[0]};
+    }
 
     public Candidate[] getWinners() {
         return winners;
@@ -49,7 +54,7 @@ public abstract class Election {
             for (int i = 0; i < Voter.VOTER_AMOUNT; ++i)
                 if (votes[i].isValid() || (votes[i].exists() && complete))
                     while (true)
-                        for (int k = 0; k < Candidate.CANDIDATE_NUM; ++k)
+                        for (int k = 0; k < Candidate.CANDIDATE_NUM; ++k) {
                             if (votes[i].getBallotAtTopChoice() == this.getCandidates()[k].getCandidateIndex())
                                 if (this.getCandidates()[k].isValid()) {
                                     this.getCandidates()[k].addSupport(1);
@@ -57,9 +62,10 @@ public abstract class Election {
                                     continue voteCount;
                                 } else {
                                     votes[i].removeTopChoice();
-                                    if (!(votes[i].isValid() || (votes[i].exists() && complete)))
+                                    if (!(votes[i].exists() && (votes[i].isValid() || complete)))
                                         continue voteCount;
                                 }
+                        }
 
         return countedVotes;
     }

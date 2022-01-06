@@ -6,8 +6,8 @@ import com.dobeye.People.Voter;
 
 public class Main {
     public static void main(String[] args) {
-        Candidate[] candidates = Generator.generateCandidates();
-        Voter[] voters = Generator.generateVoters(candidates);
+        Candidate[] candidates = Generator.generateDumbCandidates();
+        Voter[] voters = Generator.generateDumbVoters();
 
         System.out.println("FPTP");
 
@@ -142,5 +142,40 @@ public class Main {
         Candidate[] majorityJudgementStandardCandidates = majorityJudgementStandard.getCandidates();
         for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
             System.out.println(majorityJudgementStandardCandidates[i]);
+
+        System.out.println("Alternative Tideman");
+
+        AlternativeTideman alternativeTideman = new AlternativeTideman(voters, candidates);
+        Candidate[] alternativeTidemanCandidates = alternativeTideman.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(alternativeTidemanCandidates[i]);
+
+        System.out.println("Kemeny Young");
+
+        KemenyYoung kemenyYoung = new KemenyYoung(voters, candidates);
+        Candidate[] kemenyYoungCandidates = kemenyYoung.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(kemenyYoungCandidates[i]);
+
+        System.out.println("Schulze");
+
+        Schulze schulze = new Schulze(voters, candidates);
+        Candidate[] schulzeCandidates = schulze.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(schulzeCandidates[i]);
+
+        System.out.println("Ranked Pairs");
+
+        RankedPairs rankedPairs = new RankedPairs(voters, candidates);
+        Candidate[] rankedPairsCandidates = rankedPairs.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(rankedPairsCandidates[i]);
+
+        System.out.println("Split Cycle");
+
+        SplitCycle splitCycle = new SplitCycle(voters, candidates);
+        Candidate[] splitCycleCandidates = splitCycle.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(splitCycleCandidates[i]);
     }
 }

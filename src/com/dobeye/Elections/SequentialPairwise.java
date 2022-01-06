@@ -23,8 +23,8 @@ public class SequentialPairwise extends Election implements CandidateComparable 
                     contender = this.getCandidates()[j];
             }
 
-            contender.placeCandidate(i + 1);
-            contender.invalidateCandidate();
+            contender.setPlacement(i + 1);
+            contender.setValidity(false);
 
         }
 

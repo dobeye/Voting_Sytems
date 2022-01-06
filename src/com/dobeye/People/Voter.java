@@ -56,6 +56,17 @@ public class Voter extends Person {
     public Voter(int[] rankings, int partialLimit) {
         System.arraycopy(rankings, 0, this.rankings, 0, Candidate.CANDIDATE_NUM);
         this.partialLimit = partialLimit;
+
+        double judgementRange = (double) Candidate.CANDIDATE_NUM / JUDGEMENT_OPTIONS;
+        candidateAssessment:
+            for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i) {
+                for (int j = 0; j < JUDGEMENT_OPTIONS; ++j)
+                    if (i < judgementRange * (j + 1)) {
+                        candidateJudgement[i] = JUDGEMENT_OPTIONS - j;
+                        continue candidateAssessment;
+                    }
+                candidateJudgement[i] = 0;
+            }
     }
 
     public int[] getRankings() {
@@ -69,10 +80,10 @@ public class Voter extends Person {
     public void removeTopChoice() {
         this.topChoice++;
 
-        if (this.topChoice == this.partialLimit)
+        if (this.topChoice >= this.partialLimit)
             this.validity = false;
 
-        if (this.topChoice == Candidate.CANDIDATE_NUM)
+        if (this.topChoice >= Candidate.CANDIDATE_NUM)
             this.existence = false;
     }
 
@@ -85,6 +96,8 @@ public class Voter extends Person {
     }
 
     public int getBallotAtTopChoice() {
+        if (!this.existence)
+            throw new ArithmeticException("InvalidTopChoice");
         return this.rankings[topChoice];
     }
 
@@ -110,5 +123,20 @@ public class Voter extends Person {
 
     public int[] partialRankings() {
         return Arrays.copyOfRange(this.rankings, 0, this.partialLimit);
+    }
+
+    private void voteReset () {
+        this.topChoice = 0;
+        this.validity = true;
+        this.existence = true;
+    }
+
+    public static void voterReset (Voter[] votes) {
+        for (int i = 0; i < votes.length; ++i)
+            votes[i].voteReset();
+    }
+
+    public int getTopChoice () {
+        return this.topChoice;
     }
 }
