@@ -1,46 +1,146 @@
 package com.dobeye;
 
-import com.dobeye.Items.Vote;
-import com.dobeye.VotingSystems.*;
+import com.dobeye.Elections.*;
+import com.dobeye.People.Candidate;
+import com.dobeye.People.Voter;
 
 public class Main {
-
-    public static void main (String[] args) {
-        /*int[] A = {0, 1, 2, 3};
-        int[] B = {3, 2, 0, 1};
-        int[] C = {3, 2, 0, 1};
-        int[] D = {1, 2, 3, 0};
-        int[] E = {0, 2, 1, 3};
-
-        Vote[] voteArray = {new Vote(A), new Vote(B), new Vote(C), new Vote(D), new Vote(E) };*/
-        Vote[] voteArray = Generator.generateVoteArray();
+    public static void main(String[] args) {
+        Candidate[] candidates = Generator.generateCandidates();
+        Voter[] voters = Generator.generateVoters(candidates);
 
         System.out.println("FPTP");
-        FPTP.printFPTP(FPTP.generateFPTPList(voteArray));
-        System.out.println("\nInstantRunoff");
-        InstantRunoff.printInstantRunoff(InstantRunoff.generateInstantRunoffList(voteArray));
-        System.out.println("\nAlternative InstantRunoff");
-        AlternativeInstantRunoff.printAltInstantRunoff(AlternativeInstantRunoff.generateAltInstantRunoffList(voteArray));
-        System.out.println("\nBorda Count");
-        Borda.printBorda(Borda.generateBordaList(voteArray));
-        System.out.println("\nBorda Nauru Count");
-        BordaNauru.printBordaNauru(BordaNauru.generateBordaNauruList(voteArray));
-        System.out.println("\nCondorcet");
-        Condorcet.printCondorcet(Condorcet.generateCondorcetList(voteArray));
-        System.out.println("\nApproval");
-        Approval.printApproval(Approval.generateApprovalList(voteArray));
-        System.out.println("\nBucklin");
-        Bucklin.printBucklin(Bucklin.generateBucklinList(voteArray));
-        System.out.println("\nSequential Pairwise");
-        SequentialPairwise.printSequentialPairwise(SequentialPairwise.generateSequentialPairwiseList(voteArray));
-        System.out.println("\nAlternative Coombs Rule");
-        AlternativeCoombsRule.printAltCoombsRule(AlternativeCoombsRule.generateAltCoombsRuleList(voteArray));
-        System.out.println("\nCoombs Rule");
-        CoombsRule.printCoombsRule(CoombsRule.generateCoombsRuleList(voteArray));
-        System.out.println("\nNanson's Method");
-        NansonMethod.printNansonMethod(NansonMethod.generateNansonMethodList(voteArray));
-        System.out.println("\n\nCandidate Support");
-        Utils.printCandidateSupportArray(voteArray);
-    }
 
+        FPTP fptp = new FPTP(voters, candidates);
+        Candidate[] FPTPCandidates = fptp.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(FPTPCandidates[i]);
+
+        System.out.println("Approval");
+
+        Approval approval = new Approval(voters, candidates);
+        Candidate[] approvalCandidates = approval.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(approvalCandidates[i]);
+
+        System.out.println("Borda");
+
+        Borda borda = new Borda(voters, candidates);
+        Candidate[] bordaCandidates = borda.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(bordaCandidates[i]);
+
+        System.out.println("Borda Nauru");
+
+        BordaNauru bordaNauru = new BordaNauru(voters, candidates);
+        Candidate[] bordaNauruCandidates = bordaNauru.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(bordaNauruCandidates[i]);
+
+        System.out.println("Anti Plurality");
+
+        AntiPlurality antiPlurality = new AntiPlurality(voters, candidates);
+        Candidate[] antiPluralityCandidates = antiPlurality.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(antiPluralityCandidates[i]);
+
+        System.out.println("Instant RunOff");
+
+        InstantRunOff instantRunOff = new InstantRunOff(voters, candidates);
+        Candidate[] instantRunOffCandidates = instantRunOff.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(instantRunOffCandidates[i]);
+
+        System.out.println("Coombs Rule");
+
+        CoombsRule coombsRule = new CoombsRule(voters, candidates);
+        Candidate[] coombsRuleCandidates = coombsRule.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(coombsRuleCandidates[i]);
+
+        System.out.println("Bucklin");
+
+        Bucklin bucklin = new Bucklin(voters, candidates);
+        Candidate[] bucklinCandidates = bucklin.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(bucklinCandidates[i]);
+
+
+        System.out.println("Baldwin Method");
+
+        BaldwinMethod baldwinMethod = new BaldwinMethod(voters, candidates);
+        Candidate[] baldwinMethodCandidates = baldwinMethod.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(baldwinMethodCandidates[i]);
+
+        System.out.println("Copeland");
+
+        Copeland copeland = new Copeland(voters, candidates);
+        Candidate[] copelandCandidates = copeland.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(copelandCandidates[i]);
+
+        System.out.println("Sequential Pairwise");
+
+        SequentialPairwise sequentialPairwise = new SequentialPairwise(voters, candidates);
+        Candidate[] sequentialPairwiseCandidates = sequentialPairwise.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(sequentialPairwiseCandidates[i]);
+
+        System.out.println("Nanson Method");
+
+        NansonMethod nansonMethod = new NansonMethod(voters, candidates);
+        Candidate[] nansonMethodCandidates = nansonMethod.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(nansonMethodCandidates[i]);
+
+        System.out.println("MinMax Winning");
+
+        MinMaxWinning minMaxWinning = new MinMaxWinning(voters, candidates);
+        Candidate[] minMaxWinningCandidates = minMaxWinning.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(minMaxWinningCandidates[i]);
+
+        System.out.println("MinMax Margin");
+
+        MinMaxMargin minMaxMargin = new MinMaxMargin(voters, candidates);
+        Candidate[] minMaxMarginCandidates = minMaxMargin.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(minMaxMarginCandidates[i]);
+
+        System.out.println("MinMax Opposition");
+
+        MinMaxOpposition minMaxOpposition = new MinMaxOpposition(voters, candidates);
+        Candidate[] minMaxOppositionCandidates = minMaxOpposition.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(minMaxOppositionCandidates[i]);
+
+        System.out.println("Majority Judgement Typical");
+
+        MajorityJudgementTypical majorityJudgementTypical = new MajorityJudgementTypical(voters, candidates);
+        Candidate[] majorityJudgementTypicalCandidates = majorityJudgementTypical.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(majorityJudgementTypicalCandidates[i]);
+
+        System.out.println("Majority Judgement Usual");
+
+        MajorityJudgementUsual majorityJudgementUsual = new MajorityJudgementUsual(voters, candidates);
+        Candidate[] majorityJudgementUsualCandidates = majorityJudgementUsual.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(majorityJudgementUsualCandidates[i]);
+
+        System.out.println("Majority Judgement Central");
+
+        MajorityJudgementCentral majorityJudgementCentral = new MajorityJudgementCentral(voters, candidates);
+        Candidate[] majorityJudgementCentralCandidates = majorityJudgementCentral.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(majorityJudgementCentralCandidates[i]);
+
+        System.out.println("Majority Judgement Standard");
+
+        MajorityJudgementStandard majorityJudgementStandard = new MajorityJudgementStandard(voters, candidates);
+        Candidate[] majorityJudgementStandardCandidates = majorityJudgementStandard.getCandidates();
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
+            System.out.println(majorityJudgementStandardCandidates[i]);
+    }
 }

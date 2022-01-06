@@ -1,45 +1,36 @@
 package com.dobeye;
 
-import com.dobeye.Items.Candidate;
-import com.dobeye.Items.Vote;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.dobeye.People.Candidate;
+import com.dobeye.People.Voter;
 
 public class Generator {
 
-    public static Vote generateSingleVote () {
-        int size = Utils.getRandomNumber(1, Vote.CANDIDATE_AMOUNT + 1);
-        ArrayList<Integer> allCandidates = new ArrayList<>();
+    public static Candidate[] generateDumbCandidates () {
+        Candidate[] ret = new Candidate[Candidate.CANDIDATE_NAMES.length];
+        for (int i = 0; i < Candidate.CANDIDATE_NAMES.length; ++i)
+            ret[i] = new Candidate();
 
-        for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
-            allCandidates.add(i);
+        return ret;
+    }
 
-        int[] ballotArr = new int[size];
-
-        for (int i = 0; i < ballotArr.length; i++) {
-            int r = Utils.getRandomNumber(0, Vote.CANDIDATE_AMOUNT - i);
-            ballotArr[i] = allCandidates.get(r);
-            allCandidates.remove(r);
+    public static Candidate[] generateCandidates () {
+        Candidate[] ret = new Candidate[Candidate.CANDIDATE_NAMES.length];
+        for (int i = 0; i < Candidate.CANDIDATE_NAMES.length; ++i) {
+            Ideology ideology = new Ideology();
+            ret[i] = new Candidate(ideology);
         }
 
-        return new Vote(ballotArr);
+        return ret;
     }
 
-    public static Vote[] generateVoteArray () {
-        Vote[] voteArray = new Vote[Vote.VOTER_AMOUNT];
-        for (int i = 0; i < Vote.VOTER_AMOUNT; i++)
-            voteArray[i] = generateSingleVote();
+    public static Voter[] generateVoters (Candidate[] candidates) {
+        Voter[] ret = new Voter[Voter.VOTER_AMOUNT];
+        for (int i = 0; i < Voter.VOTER_AMOUNT; ++i) {
+            Ideology ideology = new Ideology();
+            ret[i] = new Voter(ideology, candidates);
+        }
 
-        return voteArray;
-    }
-
-    public static List<Candidate> generateCandidateList () {
-        List<Candidate> electionResults = new ArrayList<>();
-        for (int i = 0; i < Vote.CANDIDATE_AMOUNT; i++)
-            electionResults.add(new Candidate(i));
-
-        return electionResults;
+        return ret;
     }
 
 }
