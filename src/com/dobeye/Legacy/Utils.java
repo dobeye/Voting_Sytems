@@ -1,7 +1,8 @@
-package com.dobeye;
+package com.dobeye.Legacy;
 
-import com.dobeye.Items.Candidate;
-import com.dobeye.Items.Vote;
+import com.dobeye.Legacy.Items.Candidate;
+import com.dobeye.Legacy.Items.Vote;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Random;

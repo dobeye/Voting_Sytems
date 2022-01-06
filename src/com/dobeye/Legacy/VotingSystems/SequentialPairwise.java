@@ -1,8 +1,8 @@
-package com.dobeye.VotingSystems;
+package com.dobeye.Legacy.VotingSystems;
 
-import com.dobeye.Generator;
-import com.dobeye.Items.Candidate;
-import com.dobeye.Items.Vote;
+import com.dobeye.Legacy.Generator;
+import com.dobeye.Legacy.Items.Candidate;
+import com.dobeye.Legacy.Items.Vote;
 
 public class SequentialPairwise {
 
