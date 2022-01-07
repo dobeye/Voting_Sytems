@@ -39,4 +39,28 @@ public abstract class ScoreBased extends Election {
         for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
             this.getCandidates()[i].addSupport(-minSupport);
     }
+
+    @Override
+    public String toString () {
+        StringBuilder ret = new StringBuilder();
+        ret.append("\n").append(this.getClass().getSimpleName()).append("\n\n");
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i) {
+            Candidate candidate = this.getCandidates()[i];
+
+            String support;
+            if (this.getCandidates()[i].getSupport() % 1 == 0)
+                support = String.format("%.0f", candidate.getSupport());
+            else
+                support = String.format("%.3f", candidate.getSupport());
+
+            ret.append(candidate);
+            ret.append(String.format(" - %5s", support));
+            if (candidate.getPlacement() == 1)
+                ret.append("   ***");
+            ret.append("\n");
+        }
+        ret.append("--------------------------");
+
+        return ret.toString();
+    }
 }

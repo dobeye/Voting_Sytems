@@ -5,11 +5,10 @@ import com.dobeye.People.Voter;
 
 public abstract class MinMax extends ScoreBased implements CandidateComparable {
 
-    protected final boolean winNeutral;
+    protected boolean winNeutral;
 
-    public MinMax (Voter[] votes, Candidate[] candidates, boolean winNeutral) {
+    public MinMax(Voter[] votes, Candidate[] candidates) {
         super(votes, candidates);
-        this.winNeutral = winNeutral;
     }
 
     @Override

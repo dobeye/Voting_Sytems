@@ -45,11 +45,10 @@ public abstract class Election {
                             } else break;
     }
 
-    private int pluralityCount (Voter[] votes, boolean complete) {
+    private void pluralityCount (Voter[] votes, boolean complete) {
         for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i)
             this.getCandidates()[i].setSupport(0);
 
-        int countedVotes = 0;
         voteCount:
             for (int i = 0; i < Voter.VOTER_AMOUNT; ++i)
                 if (votes[i].isValid() || (votes[i].exists() && complete))
@@ -58,7 +57,6 @@ public abstract class Election {
                             if (votes[i].getBallotAtTopChoice() == this.getCandidates()[k].getCandidateIndex())
                                 if (this.getCandidates()[k].isValid()) {
                                     this.getCandidates()[k].addSupport(1);
-                                    countedVotes++;
                                     continue voteCount;
                                 } else {
                                     votes[i].removeTopChoice();
@@ -66,17 +64,14 @@ public abstract class Election {
                                         continue voteCount;
                                 }
                         }
-
-        return countedVotes;
     }
 
-    @SuppressWarnings("UnusedReturnValue")
-    public int pluralityCountPartial (Voter[] votes) {
-        return pluralityCount(votes, false);
+    public void pluralityCountPartial (Voter[] votes) {
+        pluralityCount(votes, false);
     }
 
-    public int pluralityCountComplete (Voter[] votes) {
-        return pluralityCount(votes, true);
+    public void pluralityCountComplete (Voter[] votes) {
+        pluralityCount(votes, true);
     }
 
     public void antiPluralityCount (Voter[] votes) {
@@ -95,6 +90,21 @@ public abstract class Election {
                                     continue voteCount;
                                 } else continue positionCount;
                         }
+    }
+
+    @Override
+    public String toString () {
+        StringBuilder ret = new StringBuilder();
+        ret.append("\n").append(this.getClass().getSimpleName()).append("\n\n");
+        for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i) {
+            ret.append(this.candidates[i].toString());
+            if (this.candidates[i].getPlacement() == 1)
+                ret.append("   ***");
+            ret.append("\n");
+        }
+        ret.append("--------------------------");
+
+        return ret.toString();
     }
 
 }

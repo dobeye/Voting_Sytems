@@ -43,6 +43,14 @@ public class AlternativeTideman extends RunOff implements CandidateComparable {
                     if (Arrays.stream(this.pseudoResults[runOffStepCount].getRemoved()).anyMatch(x -> x.getCandidateIndex() == index))
                         this.getCandidates()[j].setValidity(false);
                 }
+
+                if (currentSmithSet.length == this.pseudoResults[runOffStepCount].getRemoved().length) {
+                    for (int i = 0; i < currentSmithSet.length; ++i)
+                        if (this.getCandidates()[currentSmithSet[i]].getPlacement() == 0)
+                            this.getCandidates()[currentSmithSet[i]].setPlacement(r + 1);
+                    break;
+                }
+
                 runOffStepCount++;
             }
 

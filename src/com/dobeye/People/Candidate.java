@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class Candidate extends Person {
 
-    public static final String[] CANDIDATE_NAMES = {"Trump", "Clinton", "Stein", "Sanders", "Biden", "Buttigieg", "Iddo", "Cruz"};
+    public static final String[] CANDIDATE_NAMES = {"Trump", "Clinton", "Stein", "Sanders", "Biden", "Buttigieg", "Iddo", "Cruz", "Mccain", "Gore"};
     public static int CANDIDATE_NUM = 0;
 
     private final int candidateIndex;
@@ -46,12 +46,16 @@ public class Candidate extends Person {
             ideology = "(dumb)";
         else
             ideology = this.getIdeology().toString();
-        String support;
-        if (this.support % 1 == 0)
-            support = String.format("%.0f", this.support);
+        return String.format("#%d: %-10s %10s", this.placement, this.candidateName, ideology);
+    }
+
+    public String toStringFull () {
+        String ideology;
+        if (this.isDumb())
+            ideology = "(dumb)";
         else
-            support = String.format("%.3f", this.support);
-        String ret = String.format("#%d: %s %s - %s", this.placement, this.candidateName, ideology, support);
+            ideology = this.getIdeology().toString();
+        String ret = String.format("#%d: %-10s %10s - %f", this.placement, this.candidateName, ideology, this.support);
         if (!this.validity)
             ret += " invalid";
         return ret;
