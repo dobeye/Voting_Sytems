@@ -20,10 +20,6 @@ public abstract class Person {
         return this.ideology;
     }
 
-    public Ideology getIdeologyObject() {
-        return this.ideology;
-    }
-
     public boolean isDumb() {
         return dumb;
     }

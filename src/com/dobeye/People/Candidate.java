@@ -15,6 +15,7 @@ public class Candidate extends Person {
     private int placement = 0;
     private double support = 0;
     private boolean validity = true;
+    private boolean winner = false;
 
     public Candidate (Ideology candidateIdeology) {
         super(candidateIdeology);
@@ -31,12 +32,13 @@ public class Candidate extends Person {
     }
 
     public Candidate (Candidate other) {
-        super(other.getIdeologyObject());
+        super(other.getIdeology());
         this.candidateIndex = other.getCandidateIndex();
         this.candidateName = other.getCandidateName();
         this.placement = other.getPlacement();
         this.support = other.getSupport();
         this.validity = other.isValid();
+        this.winner = other.isWinner();
     }
 
     @Override
@@ -46,7 +48,7 @@ public class Candidate extends Person {
             ideology = "(dumb)";
         else
             ideology = this.getIdeology().toString();
-        return String.format("#%d: %-10s %10s", this.placement, this.candidateName, ideology);
+        return String.format("#%2d: %-10s %10s", this.placement, this.candidateName, ideology);
     }
 
     public String toStringFull () {
@@ -91,14 +93,26 @@ public class Candidate extends Person {
 
     public void setPlacement(int place) {
         this.placement = place;
+        if (place == 1)
+            this.winner = true;
     }
 
-    public int getPlacement () {
+    public int getPlacement() {
         return this.placement;
     }
 
     public void demotePlacement(int p) {
         this.placement += p;
+
+        this.winner = this.placement == 1;
+    }
+
+    public void win() {
+        this.winner = true;
+    }
+
+    public boolean isWinner() {
+        return winner;
     }
 
     public static void placementBySupport (Candidate[] candidates) {

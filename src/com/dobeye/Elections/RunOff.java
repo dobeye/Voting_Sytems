@@ -87,10 +87,7 @@ public abstract class RunOff extends Election {
             }
     }
 
-    public RunOffStep[] getPseudoResults () {
-        return this.pseudoResults;
-    }
-
+    @SuppressWarnings("unused")
     protected static class RunOffStep {
 
         private final Candidate[] invalidated;

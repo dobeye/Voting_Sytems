@@ -24,6 +24,7 @@ public abstract class Election {
         return new Candidate[]{this.candidates[0]};
     }
 
+    @SuppressWarnings("unused")
     public Candidate[] getWinners() {
         return winners;
     }
@@ -98,7 +99,7 @@ public abstract class Election {
         ret.append("\n").append(this.getClass().getSimpleName()).append("\n\n");
         for (int i = 0; i < Candidate.CANDIDATE_NUM; ++i) {
             ret.append(this.candidates[i].toString());
-            if (this.candidates[i].getPlacement() == 1)
+            if (this.candidates[i].isWinner())
                 ret.append("   ***");
             ret.append("\n");
         }

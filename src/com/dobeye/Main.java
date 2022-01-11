@@ -6,8 +6,8 @@ import com.dobeye.People.Voter;
 
 public class Main {
     public static void main(String[] args) {
-        Candidate[] candidates = Generator.generateCandidates();
-        Voter[] voters = Generator.generateVoters(candidates);
+        Candidate[] candidates = Generator.generateDumbCandidates();
+        Voter[] voters = Generator.generateDumbVoters();
 
         System.out.println(new AlternativeTideman(voters, candidates));
         System.out.println(new AntiPlurality(voters, candidates));
@@ -32,6 +32,7 @@ public class Main {
         System.out.println(new RankedPairs(voters, candidates));
         System.out.println(new Schulze(voters, candidates));
         System.out.println(new SequentialPairwise(voters, candidates));
+        System.out.println(new SingleTransferable(voters, candidates));
         System.out.println(new SplitCycle(voters, candidates));
         System.out.println(new STAR(voters, candidates));
     }

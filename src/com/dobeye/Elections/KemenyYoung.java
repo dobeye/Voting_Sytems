@@ -3,7 +3,6 @@ package com.dobeye.Elections;
 import com.dobeye.People.Candidate;
 import com.dobeye.People.Voter;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class KemenyYoung extends Election implements CandidateComparable {

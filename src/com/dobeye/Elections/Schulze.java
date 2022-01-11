@@ -3,8 +3,6 @@ package com.dobeye.Elections;
 import com.dobeye.People.Candidate;
 import com.dobeye.People.Voter;
 
-import java.util.Arrays;
-
 public class Schulze extends Election implements CandidateComparable {
 
     public Schulze (Voter[] votes, Candidate[] candidates) {
